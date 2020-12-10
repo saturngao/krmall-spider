@@ -24,7 +24,8 @@ public class Test {
     public void downJDProduct() throws IOException {
         String input = "辣条";// 以辣条为例，可以给这个方法加一个参数，这样就能接收用户输入进行爬取
         // 需要爬取商品信息的网站地址
-        String url = "https://search.jd.com/Search?keyword=" + input + "&enc=utf-8";
+        String url = "https://store.coupang.com/vp/vendors/C00257985/products?vendorName=Weihai+Hongyuan+Electronics+Co.%2C+Ltd.&productId=1082572752&outboundShippingPlaceId=";
+//        String url = "https://search.jd.com/Search?keyword=" + input + "&enc=utf-8";
         // 动态模拟请求数据
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
