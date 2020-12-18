@@ -45,6 +45,7 @@ public class w{
         }
         return  ee;
     }
-    public static void main(String[] args){    System.out.print(w.openFile("http://******/hrmsstatic/SensitiveWord.txt"));
+    public static void main(String[] args){
+        System.out.print(w.openFile("http://******/hrmsstatic/SensitiveWord.txt"));
     }
 }
