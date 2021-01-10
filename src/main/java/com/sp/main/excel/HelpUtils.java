@@ -112,6 +112,30 @@ public class HelpUtils {
         }
     }
 
+    public void makeImage(String imgUrl, String filePath, String fileName) {
+        // 网络请求所需变量
+        try {
+            //获取输入流
+            BufferedInputStream in = new BufferedInputStream(new URL(imgUrl).openStream());
+            //创建文件流
+            File file = new File(filePath + fileName + imgUrl.substring(imgUrl.length() - 4));
+            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
+            //缓冲字节数组
+            byte[] data = new byte[2048];
+            int length = in.read(data);
+            while (length != -1) {
+                out.write(data, 0, data.length);
+                length = in.read(data);
+            }
+            System.out.println("正在执行下载任务：当前正在下载图片" + imgUrl );
+            in.close();
+            out.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

@@ -1,6 +1,7 @@
 package com.sp.main;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sp.main.excel.HelpUtils;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -129,12 +130,14 @@ public class URLFecter {
             // 如果状态响应码为200，则获取html实体内容或者json文件
             if (statusCode == 200) {
                 String html = EntityUtils.toString(entity, Consts.UTF_8);
-                // 提取HTML得到商品信息结果
-                Document doc = Jsoup.parse(html);
-                // 通过浏览器查看商品页面的源代码，找到信息所在的div标签，再对其进行一步一步地解析,这都需要对html代码进行分析了
-                Elements ulList = doc.select("#J_goodsList");
-                Elements liList = ulList.select(".gl-item");
-                System.out.println(doc.body().toString());
+
+                System.out.println(html);
+//                // 提取HTML得到商品信息结果
+//                Document doc = Jsoup.parse(html);
+//                // 通过浏览器查看商品页面的源代码，找到信息所在的div标签，再对其进行一步一步地解析,这都需要对html代码进行分析了
+//                Elements ulList = doc.select("#J_goodsList");
+//                Elements liList = ulList.select(".gl-item");
+//                System.out.println(doc.body().toString());
                 // 循环liList的数据（具体获取的数据值还得看doc的页面源代码来获取，可能稍有变动）
 //                for (Element item : liList) {
 //                    // 商品ID
@@ -166,5 +169,15 @@ public class URLFecter {
         } finally {
 //            response.close();
         }
+    }
+
+    public static List<String> urlParseImage(String html){
+        Document doc = Jsoup.parse(html);
+        Elements ulList = doc.getElementsByTag("img");
+        List<String> images = new ArrayList<>();
+        for (Element item : ulList) {
+            images.add(item.attr("src"));
+        }
+        return images;
     }
 }
