@@ -150,7 +150,7 @@ public class URLFecter {
 //                String title = doc.select("prod-option__selected-container").select("title").text();
 //                String value = doc.select("prod-option__selected-container").select("price-label").text();
                 // µ¥Æ·ÒÂ·þ
-                Elements cloths = doc.select("Dropdown-Select__Dropdown__Item");
+                Elements cloths = doc.select("li.Dropdown-Select__Dropdown__Item");
 
                 if (cloths.size() > 0){
                     for (Element element : cloths){
@@ -158,7 +158,7 @@ public class URLFecter {
                     }
                 }
 
-                Elements titles = doc.select("prod-option__selected-container").select("title");
+                Elements titles = doc.select("div.prod-option__selected-container").select("span.title");
                 if (titles.size() > 0){
                     titles.forEach(item -> {
                         System.out.println("titles : ");
@@ -166,7 +166,7 @@ public class URLFecter {
                     });
                 }
 
-                Elements value = doc.select("prod-option__selected-container").select("value");
+                Elements value = doc.select("div.prod-option__selected-container").select("span.value");
                 if (value.size() > 0){
                     value.forEach(item -> {
                         System.out.println("value : ");
