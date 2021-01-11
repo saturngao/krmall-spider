@@ -131,7 +131,8 @@ public class URLFecter {
             if (statusCode == 200) {
                 String html = EntityUtils.toString(entity, Consts.UTF_8);
 
-                System.out.println(html);
+                System.out.println("+++++++++++++++++++++++++++++++++++++++" + url);
+//                System.out.println(html);
 //                // 提取HTML得到商品信息结果
 //                Document doc = Jsoup.parse(html);
 //                // 通过浏览器查看商品页面的源代码，找到信息所在的div标签，再对其进行一步一步地解析,这都需要对html代码进行分析了
@@ -144,11 +145,38 @@ public class URLFecter {
 //                Elements ulList = doc.select("#J_goodsList");
 //                Elements liList = ulList.select(".gl-item");
 //                System.out.println(doc.body().toString());
-                String title = doc.select("prod-option__selected-container").select("title").text();
-                String value = doc.select("prod-option__selected-container").select("price-label").text();
-                System.out.println(doc.select("thumbnail"));
-                System.out.println(title);
-                System.out.println(value);
+
+
+//                String title = doc.select("prod-option__selected-container").select("title").text();
+//                String value = doc.select("prod-option__selected-container").select("price-label").text();
+                // 单品衣服
+                Elements cloths = doc.select("Dropdown-Select__Dropdown__Item");
+
+                if (cloths.size() > 0){
+                    for (Element element : cloths){
+                        System.out.println(element.getElementsByTag("li").text());
+                    }
+                }
+
+                Elements titles = doc.select("prod-option__selected-container").select("title");
+                if (titles.size() > 0){
+                    titles.forEach(item -> {
+                        System.out.println("titles : ");
+                        System.out.println(item.text());
+                    });
+                }
+
+                Elements value = doc.select("prod-option__selected-container").select("value");
+                if (value.size() > 0){
+                    value.forEach(item -> {
+                        System.out.println("value : ");
+                        System.out.println(item.text());
+                    });
+                }
+
+//                System.out.println(doc.select("thumbnail"));
+//                System.out.println(title);
+//                System.out.println(value);
                 // 循环liList的数据（具体获取的数据值还得看doc的页面源代码来获取，可能稍有变动）
 //                for (Element item : liList) {
 //                    // 商品ID
