@@ -149,6 +149,20 @@ public class URLFecter {
 
 //                String title = doc.select("prod-option__selected-container").select("title").text();
 //                String value = doc.select("prod-option__selected-container").select("price-label").text();
+                Elements cl = doc.select("div#optionWrapper").select("div.single-attribute__textLabel");
+                if (cl.size() > 0){
+                    cl.forEach(item -> {
+                        if (item.text().contains("???")) {
+                            // 尺寸
+                            System.out.println("尺寸：" + item.getElementsByTag("i").text());
+                        }
+                        if (item.text().contains("??")) {
+                            // 颜色
+                            System.out.println("颜色：" + item.getElementsByTag("i").text());
+                        }
+                    });
+                }
+
                 // 单品衣服
                 Elements cloths = doc.select("li.Dropdown-Select__Dropdown__Item");
 
