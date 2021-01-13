@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /*
- *  ºÏ·Ê¹¤Òµ´óÑ§ ¹ÜÀíÑ§Ôº qianyang 1563178220@qq.com
+ *  åˆè‚¥å·¥ä¸šå¤§å­¦ ç®¡ç†å­¦é™¢ qianyang 1563178220@qq.com
  */
 public class URLFecter {
     public static List<JdModel> URLParser (HttpClient client, String url) throws Exception {
@@ -51,27 +51,27 @@ public class URLFecter {
 //        header.put("sec-fetch-mode", "cors");
 //        header.put("sec-fetch-site", "same-site");
 //        header.put("Upgrade-Insecure-Requests", "1");
-        //ÓÃÀ´½ÓÊÕ½âÎöµÄÊı¾İ
+        //ç”¨æ¥æ¥æ”¶è§£æçš„æ•°æ®
         List<JdModel> JingdongData = new ArrayList<JdModel>();
-        //»ñÈ¡ÍøÕ¾ÏìÓ¦µÄhtml£¬ÕâÀïµ÷ÓÃÁËHTTPUtilsÀà
+        //è·å–ç½‘ç«™å“åº”çš„htmlï¼Œè¿™é‡Œè°ƒç”¨äº†HTTPUtilsç±»
         HttpResponse response = HTTPUtils.getRawHtml(client, url, header);
-        //»ñÈ¡ÏìÓ¦×´Ì¬Âë
+        //è·å–å“åº”çŠ¶æ€ç 
         int StatusCode = response.getStatusLine().getStatusCode();
-        //Èç¹û×´Ì¬ÏìÓ¦ÂëÎª200£¬Ôò»ñÈ¡htmlÊµÌåÄÚÈİ»òÕßjsonÎÄ¼ş
+        //å¦‚æœçŠ¶æ€å“åº”ç ä¸º200ï¼Œåˆ™è·å–htmlå®ä½“å†…å®¹æˆ–è€…jsonæ–‡ä»¶
         if(StatusCode == 200){
             String entity = EntityUtils.toString (response.getEntity(),"utf-8");
             System.out.println("entity ------- " + entity);
             JingdongData = JdParse.getData(entity);
             EntityUtils.consume(response.getEntity());
         }else {
-            //·ñÔò£¬ÏûºÄµôÊµÌå
+            //å¦åˆ™ï¼Œæ¶ˆè€—æ‰å®ä½“
             EntityUtils.consume(response.getEntity());
         }
         return JingdongData;
     }
 
     /**
-     * get½Ó¿Ú
+     * getæ¥å£
      * @param url
      * @param header
      * @return
@@ -81,16 +81,16 @@ public class URLFecter {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpResponse response = HTTPUtils.getRawHtml(httpclient, url, header);
         JSONObject object = new JSONObject();
-        //»ñÈ¡ÏìÓ¦×´Ì¬Âë
+        //è·å–å“åº”çŠ¶æ€ç 
         int StatusCode = response.getStatusLine().getStatusCode();
-        //Èç¹û×´Ì¬ÏìÓ¦ÂëÎª200£¬Ôò»ñÈ¡htmlÊµÌåÄÚÈİ»òÕßjsonÎÄ¼ş
+        //å¦‚æœçŠ¶æ€å“åº”ç ä¸º200ï¼Œåˆ™è·å–htmlå®ä½“å†…å®¹æˆ–è€…jsonæ–‡ä»¶
         if(StatusCode == 200){
             String entity = EntityUtils.toString (response.getEntity(),"utf-8");
             System.out.println("entity ------- " + entity);
             object = JSONObject.parseObject(entity);
             EntityUtils.consume(response.getEntity());
         }else {
-            //·ñÔò£¬ÏûºÄµôÊµÌå
+            //å¦åˆ™ï¼Œæ¶ˆè€—æ‰å®ä½“
             EntityUtils.consume(response.getEntity());
         }
         return object;
@@ -101,16 +101,16 @@ public class URLFecter {
 //        CloseableHttpClient httpclient = HttpClients.createDefault();
 //        HttpResponse response = HTTPUtils.getRawHtml(httpclient, url, header);
 //        JSONObject object = new JSONObject();
-//        //»ñÈ¡ÏìÓ¦×´Ì¬Âë
+//        //è·å–å“åº”çŠ¶æ€ç 
 //        int StatusCode = response.getStatusLine().getStatusCode();
-//        //Èç¹û×´Ì¬ÏìÓ¦ÂëÎª200£¬Ôò»ñÈ¡htmlÊµÌåÄÚÈİ»òÕßjsonÎÄ¼ş
+//        //å¦‚æœçŠ¶æ€å“åº”ç ä¸º200ï¼Œåˆ™è·å–htmlå®ä½“å†…å®¹æˆ–è€…jsonæ–‡ä»¶
 //        if(StatusCode == 200){
 //            String entity = EntityUtils.toString (response.getEntity(),"utf-8");
 //            System.out.println("entity ------- " + entity);
 //            object = JSONObject.parseObject(entity);
 //            EntityUtils.consume(response.getEntity());
 //        }else {
-//            //·ñÔò£¬ÏûºÄµôÊµÌå
+//            //å¦åˆ™ï¼Œæ¶ˆè€—æ‰å®ä½“
 //            EntityUtils.consume(response.getEntity());
 //        }
 
@@ -119,29 +119,29 @@ public class URLFecter {
         HttpGet httpGet = new HttpGet(url);
         RequestConfig defaultConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
         httpGet.setConfig(defaultConfig);
-        // Ä£Äâä¯ÀÀÆ÷ä¯ÀÀ£¨user-agentµÄÖµ¿ÉÒÔÍ¨¹ıä¯ÀÀÆ÷ä¯ÀÀ£¬²é¿´·¢³öÇëÇóµÄÍ·ÎÄ¼ş»ñÈ¡£©
+        // æ¨¡æ‹Ÿæµè§ˆå™¨æµè§ˆï¼ˆuser-agentçš„å€¼å¯ä»¥é€šè¿‡æµè§ˆå™¨æµè§ˆï¼ŒæŸ¥çœ‹å‘å‡ºè¯·æ±‚çš„å¤´æ–‡ä»¶è·å–ï¼‰
         httpGet.setHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
         HttpResponse response = HTTPUtils.getRawHtml(httpclient, url, header);
 //        CloseableHttpResponse response = httpclient.execute(httpGet);
-        // »ñÈ¡ÏìÓ¦×´Ì¬Âë
+        // è·å–å“åº”çŠ¶æ€ç 
         int statusCode = response.getStatusLine().getStatusCode();
         try {
             HttpEntity entity = response.getEntity();
-            // Èç¹û×´Ì¬ÏìÓ¦ÂëÎª200£¬Ôò»ñÈ¡htmlÊµÌåÄÚÈİ»òÕßjsonÎÄ¼ş
+            // å¦‚æœçŠ¶æ€å“åº”ç ä¸º200ï¼Œåˆ™è·å–htmlå®ä½“å†…å®¹æˆ–è€…jsonæ–‡ä»¶
             if (statusCode == 200) {
                 String html = EntityUtils.toString(entity, Consts.UTF_8);
 
                 System.out.println("+++++++++++++++++++++++++++++++++++++++" + url);
 //                System.out.println(html);
-//                // ÌáÈ¡HTMLµÃµ½ÉÌÆ·ĞÅÏ¢½á¹û
+//                // æå–HTMLå¾—åˆ°å•†å“ä¿¡æ¯ç»“æœ
 //                Document doc = Jsoup.parse(html);
-//                // Í¨¹ıä¯ÀÀÆ÷²é¿´ÉÌÆ·Ò³ÃæµÄÔ´´úÂë£¬ÕÒµ½ĞÅÏ¢ËùÔÚµÄdiv±êÇ©£¬ÔÙ¶ÔÆä½øĞĞÒ»²½Ò»²½µØ½âÎö,Õâ¶¼ĞèÒª¶Ôhtml´úÂë½øĞĞ·ÖÎöÁË
+//                // é€šè¿‡æµè§ˆå™¨æŸ¥çœ‹å•†å“é¡µé¢çš„æºä»£ç ï¼Œæ‰¾åˆ°ä¿¡æ¯æ‰€åœ¨çš„divæ ‡ç­¾ï¼Œå†å¯¹å…¶è¿›è¡Œä¸€æ­¥ä¸€æ­¥åœ°è§£æ,è¿™éƒ½éœ€è¦å¯¹htmlä»£ç è¿›è¡Œåˆ†æäº†
 //                Elements ulList = doc.select("#J_goodsList");
 //                Elements liList = ulList.select(".gl-item");
 //                System.out.println(doc.body().toString());
-                // ÌáÈ¡HTMLµÃµ½ÉÌÆ·ĞÅÏ¢½á¹û
+                // æå–HTMLå¾—åˆ°å•†å“ä¿¡æ¯ç»“æœ
                 Document doc = Jsoup.parse(html);
-                // Í¨¹ıä¯ÀÀÆ÷²é¿´ÉÌÆ·Ò³ÃæµÄÔ´´úÂë£¬ÕÒµ½ĞÅÏ¢ËùÔÚµÄdiv±êÇ©£¬ÔÙ¶ÔÆä½øĞĞÒ»²½Ò»²½µØ½âÎö,Õâ¶¼ĞèÒª¶Ôhtml´úÂë½øĞĞ·ÖÎöÁË
+                // é€šè¿‡æµè§ˆå™¨æŸ¥çœ‹å•†å“é¡µé¢çš„æºä»£ç ï¼Œæ‰¾åˆ°ä¿¡æ¯æ‰€åœ¨çš„divæ ‡ç­¾ï¼Œå†å¯¹å…¶è¿›è¡Œä¸€æ­¥ä¸€æ­¥åœ°è§£æ,è¿™éƒ½éœ€è¦å¯¹htmlä»£ç è¿›è¡Œåˆ†æäº†
 //                Elements ulList = doc.select("#J_goodsList");
 //                Elements liList = ulList.select(".gl-item");
 //                System.out.println(doc.body().toString());
@@ -149,39 +149,79 @@ public class URLFecter {
 
 //                String title = doc.select("prod-option__selected-container").select("title").text();
 //                String value = doc.select("prod-option__selected-container").select("price-label").text();
+                Elements e = doc.getElementsByTag("script");
+                JSONObject jsonObject = null;
+                for (Element element : e) {
+//                    Elements scripts = element.getElementsByTag("script");
+//                    for (Element s : scripts){
+                        String jsons = element.data().toString();
+                        if (jsons.contains("function")){
+                            String sdpIssueTypes[] = jsons.split("exports.sdpIssueTypes");
+                            for (String s1 : sdpIssueTypes){
+                                if (s1.contains("function(exports)")){
+                                    jsonObject = JSONObject.parseObject(s1.split("exports.sdp")[1].replaceFirst("=", "").replaceFirst(";", "")) ;
+                                    System.out.println("******** " + jsonObject.toString());
+                                }
+                            }
+                        }
+//                    }
+//                    /*å–å¾—JSå˜é‡æ•°ç»„*/
+//                    String[] data = element.data().toString().split("exports.sdp");
+//                    /*å–å¾—å•ä¸ªJSå˜é‡*/
+//                    for(String variable : data){
+//
+//                        /*è¿‡æ»¤variableä¸ºç©ºçš„æ•°æ®*/
+//                        if(variable.contains("=")) {
+//                            String[]  kvp = variable.split("=");
+//                            System.out.println(kvp[1]);
+//                        }
+//
+//                    }
+                }
                 Elements cl = doc.select("div#optionWrapper").select("div.single-attribute__textLabel");
                 if (cl.size() > 0){
                     cl.forEach(item -> {
-                        if (item.text().contains("???")) {
-                            // ³ß´ç
-                            System.out.println("³ß´ç£º" + item.getElementsByTag("i").text());
+                        if (item.text().contains("ì‚¬ì´ì¦ˆ")) {
+                            // å°ºå¯¸
+                            System.out.println("å°ºå¯¸ï¼š" + item.getElementsByTag("i").text());
                         }
-                        if (item.text().contains("??")) {
-                            // ÑÕÉ«
-                            System.out.println("ÑÕÉ«£º" + item.getElementsByTag("i").text());
+                        if (item.text().contains("ìƒ‰ìƒ")) {
+                            // é¢œè‰²
+                            System.out.println("é¢œè‰²ï¼š" + item.getElementsByTag("i").text());
                         }
                     });
                 }
 
-                // µ¥Æ·ÒÂ·ş
-                Elements cloths = doc.select("li.Dropdown-Select__Dropdown__Item");
+                // å•å“è¡£æœ
+                Elements cloths = doc.select("div#optionWrapper");
 
                 if (cloths.size() > 0){
-                    for (Element element : cloths){
-                        System.out.println(element.getElementsByTag("li").text());
-                    }
+//                    for (Element element : cloths){
+//                        System.out.println(element.getElementsByTag("li").text());
+//                    }
+                    System.out.println("å•å“è¡£æœ");
+                    // å°ºå¯¸
+                    cl.select("li.Dropdown-Select__Dropdown__Item").forEach(item -> {
+                        System.out.println(item.getElementsByTag("li").text());
+                    });
+                    // é¢œè‰²
+                    cl.forEach(item -> {
+                        System.out.println(item.getElementsByTag("span").text());
+                    });
                 }
 
                 Elements titles = doc.select("div.prod-option__selected-container").select("span.title");
                 if (titles.size() > 0){
+                    System.out.println("---div.prod-option__selected-container---span.title");
                     titles.forEach(item -> {
                         System.out.println("titles : ");
                         System.out.println(item.text());
                     });
                 }
 
-                Elements value = doc.select("div.prod-option__selected-container").select("span.value");
+                Elements value = doc.select("div.prod-option__selected-container").select("span.title");
                 if (value.size() > 0){
+                    System.out.println("---div.prod-option__selected-container---span.title");
                     value.forEach(item -> {
                         System.out.println("value : ");
                         System.out.println(item.text());
@@ -191,32 +231,32 @@ public class URLFecter {
 //                System.out.println(doc.select("thumbnail"));
 //                System.out.println(title);
 //                System.out.println(value);
-                // Ñ­»·liListµÄÊı¾İ£¨¾ßÌå»ñÈ¡µÄÊı¾İÖµ»¹µÃ¿´docµÄÒ³ÃæÔ´´úÂëÀ´»ñÈ¡£¬¿ÉÄÜÉÔÓĞ±ä¶¯£©
+                // å¾ªç¯liListçš„æ•°æ®ï¼ˆå…·ä½“è·å–çš„æ•°æ®å€¼è¿˜å¾—çœ‹docçš„é¡µé¢æºä»£ç æ¥è·å–ï¼Œå¯èƒ½ç¨æœ‰å˜åŠ¨ï¼‰
 //                for (Element item : liList) {
-//                    // ÉÌÆ·ID
+//                    // å•†å“ID
 //                    String id = item.attr("data-sku");
-//                    System.out.println("ÉÌÆ·ID£º" + id);
-//                    // ÉÌÆ·Ãû³Æ
+//                    System.out.println("å•†å“IDï¼š" + id);
+//                    // å•†å“åç§°
 //                    String name = item.select(".p-name").select("em").text();
-//                    System.out.println("ÉÌÆ·Ãû³Æ£º" + name);
-//                    // ÉÌÆ·¼Û¸ñ
+//                    System.out.println("å•†å“åç§°ï¼š" + name);
+//                    // å•†å“ä»·æ ¼
 //                    String price = item.select(".p-price").select("i").text();
-//                    System.out.println("ÉÌÆ·¼Û¸ñ£º" + price);
-//                    // ÉÌÆ·ÍøÖ·
+//                    System.out.println("å•†å“ä»·æ ¼ï¼š" + price);
+//                    // å•†å“ç½‘å€
 //                    String goodsUrl = item.select(".p-name").select("a").attr("href");
-//                    System.out.println("ÉÌÆ·ÍøÖ·£º" + goodsUrl);
-//                    // ÉÌÆ·Í¼Æ¬ÍøÖ·
+//                    System.out.println("å•†å“ç½‘å€ï¼š" + goodsUrl);
+//                    // å•†å“å›¾ç‰‡ç½‘å€
 //                    String imgUrl = item.select(".p-img").select("a").select("img").attr("src");
-//                    System.out.println("ÉÌÆ·Í¼Æ¬ÍøÖ·£º" + imgUrl);
-//                    // ÉÌÆ·µêÆÌ
+//                    System.out.println("å•†å“å›¾ç‰‡ç½‘å€ï¼š" + imgUrl);
+//                    // å•†å“åº—é“º
 //                    String goodsShop = item.select(".p-shop").select("span").select("a").attr("title");
-//                    System.out.println("ÉÌÆ·µêÆÌÃû³Æ£º" + goodsShop);
+//                    System.out.println("å•†å“åº—é“ºåç§°ï¼š" + goodsShop);
 //                    System.out.println("------------------------------------");
 //                }
-                // ÏûºÄµôÊµÌå
+                // æ¶ˆè€—æ‰å®ä½“
                 EntityUtils.consume(response.getEntity());
             } else {
-                // ÏûºÄµôÊµÌå
+                // æ¶ˆè€—æ‰å®ä½“
                 EntityUtils.consume(response.getEntity());
             }
         } finally {

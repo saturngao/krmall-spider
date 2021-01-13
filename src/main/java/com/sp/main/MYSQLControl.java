@@ -8,17 +8,17 @@ import javax.sql.DataSource;
 
 /**
  * author qianyang 1563178220@qq.com
- * Mysql²Ù×÷µÄQueryRunner·½·¨
- * Ò»¸öÊı¾İ¿â²Ù×÷Àà£¬±ğµÄ³ÌĞòÖ±½Óµ÷ÓÃ¼´¿É
+ * Mysqlæ“ä½œçš„QueryRunneræ–¹æ³•
+ * ä¸€ä¸ªæ•°æ®åº“æ“ä½œç±»ï¼Œåˆ«çš„ç¨‹åºç›´æ¥è°ƒç”¨å³å¯
  */
 public class MYSQLControl {
 
     /**
-     * ¸ù¾İ×Ô¼ºµÄÊı¾İ¿âµØÖ·ĞŞ¸Ä
+     * æ ¹æ®è‡ªå·±çš„æ•°æ®åº“åœ°å€ä¿®æ”¹
      */
     static DataSource ds = MyDataSource.getDataSource("jdbc:mysql://127.0.0.1:3306/moviedata");
     static QueryRunner qr = new QueryRunner(ds);
-    //µÚÒ»Àà·½·¨
+    //ç¬¬ä¸€ç±»æ–¹æ³•
     public static void executeUpdate(String sql){
         try {
             qr.update(sql);
@@ -26,12 +26,12 @@ public class MYSQLControl {
             e.printStackTrace();
         }
     }
-    //µÚ¶şÀàÊı¾İ¿â²Ù×÷·½·¨
+    //ç¬¬äºŒç±»æ•°æ®åº“æ“ä½œæ–¹æ³•
     public static void executeInsert(List<JdModel> jingdongdata) throws SQLException {
         /*
-         * ¶¨ÒåÒ»¸öObjectÊı×é£¬ĞĞÁĞ
-         * 3±íÊ¾ÁĞÊı£¬¸ù¾İ×Ô¼ºµÄÊı¾İ¶¨ÒåÕâÀïÃæµÄÊı×Ö
-         * params[i][0]µÈÊÇ¶ÔÊı×é¸³Öµ£¬ÕâÀïÓÃµ½¼¯ºÏµÄget·½·¨
+         * å®šä¹‰ä¸€ä¸ªObjectæ•°ç»„ï¼Œè¡Œåˆ—
+         * 3è¡¨ç¤ºåˆ—æ•°ï¼Œæ ¹æ®è‡ªå·±çš„æ•°æ®å®šä¹‰è¿™é‡Œé¢çš„æ•°å­—
+         * params[i][0]ç­‰æ˜¯å¯¹æ•°ç»„èµ‹å€¼ï¼Œè¿™é‡Œç”¨åˆ°é›†åˆçš„getæ–¹æ³•
          * 
          */
         Object[][] params = new Object[jingdongdata.size()][3];
@@ -42,7 +42,7 @@ public class MYSQLControl {
         }
         qr.batch("insert into jingdongbook (bookID, bookName, bookPrice)"
                 + "values (?,?,?)", params);
-        System.out.println("Ö´ĞĞÊı¾İ¿âÍê±Ï£¡"+"³É¹¦²åÈëÊı¾İ£º"+jingdongdata.size()+"Ìõ");
+        System.out.println("æ‰§è¡Œæ•°æ®åº“å®Œæ¯•ï¼"+"æˆåŠŸæ’å…¥æ•°æ®ï¼š"+jingdongdata.size()+"æ¡");
 
     }
 }
