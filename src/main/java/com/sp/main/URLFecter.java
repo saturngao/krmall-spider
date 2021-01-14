@@ -1,7 +1,9 @@
 package com.sp.main;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.sp.main.excel.HelpUtils;
+import com.sp.main.model.SaveModel;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -136,9 +138,7 @@ public class URLFecter {
 //                // 提取HTML得到商品信息结果
 //                Document doc = Jsoup.parse(html);
 //                // 通过浏览器查看商品页面的源代码，找到信息所在的div标签，再对其进行一步一步地解析,这都需要对html代码进行分析了
-//                Elements ulList = doc.select("#J_goodsList");
-//                Elements liList = ulList.select(".gl-item");
-//                System.out.println(doc.body().toString());
+
                 // 提取HTML得到商品信息结果
                 Document doc = Jsoup.parse(html);
                 // 通过浏览器查看商品页面的源代码，找到信息所在的div标签，再对其进行一步一步地解析,这都需要对html代码进行分析了
@@ -146,24 +146,26 @@ public class URLFecter {
 //                Elements liList = ulList.select(".gl-item");
 //                System.out.println(doc.body().toString());
 
-
-//                String title = doc.select("prod-option__selected-container").select("title").text();
-//                String value = doc.select("prod-option__selected-container").select("price-label").text();
                 Elements e = doc.getElementsByTag("script");
                 JSONObject jsonObject = null;
+                List<SaveModel> list = new ArrayList<>();
+                SaveModel saveModel = null;
                 for (Element element : e) {
-//                    Elements scripts = element.getElementsByTag("script");
-//                    for (Element s : scripts){
-                        String jsons = element.data().toString();
-                        if (jsons.contains("function")){
-                            String sdpIssueTypes[] = jsons.split("exports.sdpIssueTypes");
-                            for (String s1 : sdpIssueTypes){
-                                if (s1.contains("function(exports)")){
-                                    jsonObject = JSONObject.parseObject(s1.split("exports.sdp")[1].replaceFirst("=", "").replaceFirst(";", "")) ;
-                                    System.out.println("******** " + jsonObject.toString());
-                                }
+                    String jsons = element.data().toString();
+                    if (jsons.contains("function")){
+                        String sdpIssueTypes[] = jsons.split("exports.sdpIssueTypes");
+                        for (String s1 : sdpIssueTypes){
+                            if (s1.contains("function(exports)")){
+                                saveModel = new SaveModel();
+                                jsonObject = JSONObject.parseObject(s1.split("exports.sdp")[1].replaceFirst("=", "").replaceFirst(";", "")) ;
+                                saveModel.setName(jsonObject.getString("title"));
+                                saveModel.setPrice(jsonObject.getString(""));
+//                                for (JsonObject object : )
+//                                saveModel.setColor();
+                                System.out.println("******** " + jsonObject.toString());
                             }
                         }
+                    }
 //                    }
 //                    /*取得JS变量数组*/
 //                    String[] data = element.data().toString().split("exports.sdp");
@@ -178,55 +180,7 @@ public class URLFecter {
 //
 //                    }
                 }
-                Elements cl = doc.select("div#optionWrapper").select("div.single-attribute__textLabel");
-                if (cl.size() > 0){
-                    cl.forEach(item -> {
-                        if (item.text().contains("사이즈")) {
-                            // 尺寸
-                            System.out.println("尺寸：" + item.getElementsByTag("i").text());
-                        }
-                        if (item.text().contains("색상")) {
-                            // 颜色
-                            System.out.println("颜色：" + item.getElementsByTag("i").text());
-                        }
-                    });
-                }
 
-                // 单品衣服
-                Elements cloths = doc.select("div#optionWrapper");
-
-                if (cloths.size() > 0){
-//                    for (Element element : cloths){
-//                        System.out.println(element.getElementsByTag("li").text());
-//                    }
-                    System.out.println("单品衣服");
-                    // 尺寸
-                    cl.select("li.Dropdown-Select__Dropdown__Item").forEach(item -> {
-                        System.out.println(item.getElementsByTag("li").text());
-                    });
-                    // 颜色
-                    cl.forEach(item -> {
-                        System.out.println(item.getElementsByTag("span").text());
-                    });
-                }
-
-                Elements titles = doc.select("div.prod-option__selected-container").select("span.title");
-                if (titles.size() > 0){
-                    System.out.println("---div.prod-option__selected-container---span.title");
-                    titles.forEach(item -> {
-                        System.out.println("titles : ");
-                        System.out.println(item.text());
-                    });
-                }
-
-                Elements value = doc.select("div.prod-option__selected-container").select("span.title");
-                if (value.size() > 0){
-                    System.out.println("---div.prod-option__selected-container---span.title");
-                    value.forEach(item -> {
-                        System.out.println("value : ");
-                        System.out.println(item.text());
-                    });
-                }
 
 //                System.out.println(doc.select("thumbnail"));
 //                System.out.println(title);
