@@ -15,13 +15,13 @@ import org.apache.http.message.BasicHttpResponse;
  */
 public abstract class HTTPUtils {
     public static HttpResponse getRawHtml(HttpClient client, String personalUrl, Map<String, String> header) {
-        //获取响应文件，即html，采用get方法获取响应数据
+        //鑾峰彇鍝嶅簲鏂囦欢锛屽嵆html锛岄噰鐢╣et鏂规硶鑾峰彇鍝嶅簲鏁版嵁
         HttpGet getMethod = new HttpGet(personalUrl);
         setHeaders(getMethod, header);
         HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
                 HttpStatus.SC_OK, "OK");
         try {
-            //执行get方法
+            //鎵цget鏂规硶
             response = client.execute(getMethod);
         } catch (IOException e) {
             e.printStackTrace();

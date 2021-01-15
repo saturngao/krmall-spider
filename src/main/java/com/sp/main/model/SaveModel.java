@@ -1,6 +1,9 @@
 package com.sp.main.model;
 
 public class SaveModel {
+    /**
+     * id
+     */
     private String id;
     private String name;
     private String size;
