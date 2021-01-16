@@ -178,7 +178,7 @@ public class URLFecter {
 //                        }
 //
 //                    }
-                }
+//                }
 
 
 //                System.out.println(doc.select("thumbnail"));
